@@ -9,13 +9,14 @@ pygame.init()
 clock = pygame.time.Clock()
 
 window = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
-creature = pygame.Rect(SCREEN_WIDTH/2, SCREEN_HEIGHT/2 - i*dt, 50, 50)
 
-def drawCreature():
-    for i in range(0,100):
+def drawCreature(timer):
+        creature = pygame.Rect(SCREEN_WIDTH/2 - (timer *100), SCREEN_HEIGHT/2 + (timer *100), 50, 50)
         pygame.draw.rect(window, ("white"), creature)
 
 
+
+total_timeleft = random.randint(3,9)
 
 while True:
     
@@ -27,6 +28,14 @@ while True:
 
 
     dt = clock.tick(60) / 1000
+    
+    if total_timeleft > 0:
+        total_timeleft -= dt
+    else:
+        total_timeleft = random.randint(3,9)
+    
+    
+    print(total_timeleft)
     window.fill((0,0,0))
-    drawCreature()
+    drawCreature(total_timeleft)
     pygame.display.update()
